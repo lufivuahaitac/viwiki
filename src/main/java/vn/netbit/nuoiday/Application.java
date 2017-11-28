@@ -8,6 +8,9 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import vn.netbit.config.Config;
 import vn.netbit.utils.ConnectionManager;
 import vn.netbit.utils.ShutdownListener;
@@ -26,6 +29,16 @@ public class Application {
         app.addListeners(new ShutdownListener());
         app.run(args);
         //SpringApplication.run(app, args);
+    }
+    
+    @Configuration
+    public static class PathMatchingConfigurationAdapter extends WebMvcConfigurerAdapter {
+ 
+        @Override
+        public void configurePathMatch(PathMatchConfigurer configurer) {
+            configurer.setUseSuffixPatternMatch(false);
+            //Bỏ vào dc /admin.abc hoặc /admin.jfdkalf
+        }
     }
     
     
