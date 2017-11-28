@@ -20,11 +20,19 @@ import vn.netbit.utils.ConnectionManager;
 public class AccountController {
     private static Logger logger = LogManager.getLogger(AccountController.class);
     
-     @RequestMapping("/register")
-    public String index(Model model) {
-        logger.info("Start index");
-        ConnectionManager.getInstance().getConnection();
-        model.addAttribute("name", "test");
+    @RequestMapping("/register")
+    public String register() {
+
+        return "newaccount";
+    }
+    
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+    
+    @RequestMapping("/admin")
+    public String admin() {
         return "newaccount";
     }
 }
