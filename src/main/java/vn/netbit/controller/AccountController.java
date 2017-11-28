@@ -14,29 +14,17 @@ import vn.netbit.utils.ConnectionManager;
 
 /**
  *
- * @author lufiv
+ * @author truongnq
  */
 @Controller
-public class FrontController {
-    private static Logger logger = LogManager.getLogger(FrontController.class);
+public class AccountController {
+    private static Logger logger = LogManager.getLogger(AccountController.class);
     
-    @RequestMapping("/")
+     @RequestMapping("/register")
     public String index(Model model) {
         logger.info("Start index");
         ConnectionManager.getInstance().getConnection();
         model.addAttribute("name", "test");
-        return "index";
-    }
-    
-    @RequestMapping("/topic")
-    public String topic(Model model) {
-        //model.addAttribute("name", "test");
-        return "topic";
-    }
-    
-    @RequestMapping("/new")
-    public String newTopic(Model model) {
-        //model.addAttribute("name", "test");
-        return "newtopic";
+        return "newaccount";
     }
 }

@@ -74,3 +74,25 @@ CREATE TABLE IF NOT EXISTS `nqt_comments` (
   `comment_agent` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `nqt_taxonomy_map` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `post_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `taxonomy_ID` bigint(20) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `nqt_register_notify` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `user_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `post_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `comment_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `status` int(20) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE IF NOT EXISTS `nqt_notify_message` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `notify_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `content` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `status` int(20) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
