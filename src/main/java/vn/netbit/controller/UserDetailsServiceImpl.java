@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         
         
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("Người dùng không tồn tại");
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -56,5 +57,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getUserName(), user.getPassWord(), grantedAuthorities);
     }
 
+    
 
 }

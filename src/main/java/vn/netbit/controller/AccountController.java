@@ -11,7 +11,10 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  *
@@ -25,7 +28,18 @@ public class AccountController {
     @RequestMapping("/register")
     public String register() {
 
-        return "newaccount";
+        return "register";
+    }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(Model model,
+                           WebRequest request) {
+        try {
+            throw new Exception("a");
+        } catch (Exception e) {
+            model.addAttribute("msg", "Có lỗi trong quá trình đăng ký vui lòng thử lại");
+            return "register";
+        }
     }
 
     @RequestMapping("/login")
