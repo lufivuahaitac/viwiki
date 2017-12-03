@@ -16,12 +16,8 @@ public class User implements Serializable{
     private int id;
     private String userName;
     private String passWord;
+    private String name;
     private List<String> roles;
-
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", roles=" + roles + '}';
-    }
 
     public int getId() {
         return id;
@@ -47,6 +43,14 @@ public class User implements Serializable{
         this.passWord = passWord;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<String> getRoles() {
         return roles;
     }
@@ -54,4 +58,10 @@ public class User implements Serializable{
     public void setRoles(List<String> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", name=" + name + ", roles=" + roles + '}';
+    }
+
 }

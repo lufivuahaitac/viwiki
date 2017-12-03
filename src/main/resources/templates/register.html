@@ -23,9 +23,9 @@
             <div class="account-wall">
                 <img class="profile-img" src="/images/user.jpg"
                     alt="">
-                <form class="form-signin" th:action="@{/register}" method="post">
-                    <input type="text" name="fullname" class="form-control" placeholder="Họ và tên" required autofocus>
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                <form class="form-signin" th:action="@{/register}"  th:object="${user}" method="post">
+                    <input type="text" th:field="*{name}" name="fullname" class="form-control" placeholder="Họ và tên" required autofocus>
+                    <input type="email" th:field="*{userName}" name="email" class="form-control" placeholder="Email" required>
                     <label class="checkbox pull-left">
                         <input type="checkbox" name="term" required>
                         Đồng ý với <a href="">điều khoản và nội quy</a>.
