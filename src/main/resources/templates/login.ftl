@@ -9,7 +9,7 @@
   
 </head>
 
-<body>
+<body onload='document.form-signin.username.focus();'>
   
 <!-- Mixins-->
 <!-- Pen Title-->
