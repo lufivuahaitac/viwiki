@@ -27,7 +27,7 @@ public class AccountController {
 
     private static Logger logger = LogManager.getLogger(AccountController.class);
 
-    @RequestMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
@@ -36,7 +36,7 @@ public class AccountController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(Model model,
                            WebRequest request,
-                           @ModelAttribute User user) {
+                           @ModelAttribute("user") User user) {
         try {
             throw new Exception("a");
         } catch (Exception e) {
@@ -56,6 +56,6 @@ public class AccountController {
 
     @RequestMapping("/admin")
     public String admin() {
-        return "newaccount";
+        return "topic";
     }
 }

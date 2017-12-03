@@ -20,13 +20,16 @@
             <div class="account-wall">
                 <img class="profile-img" src="/images/user.jpg"
                     alt="">
-                <form class="form-signin" th:action="@{/login}" method="post">
+                <form class="form-signin" th:action="/login" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="text" name="username" class="form-control" placeholder="Email" required autofocus>
                     <input type="password" name="password" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
-                <p class="error-msg"  th:if="${param.error}">
+                <#if RequestParameters.error??>
+                <p class="error-msg" >
                     Sai tên đăng nhập hoặc mật khẩu
                 </p>
+                </#if>
                 <label class="checkbox pull-left">
                     <input type="checkbox" value="remember-me"> Ghi nhớ
                 </label>
