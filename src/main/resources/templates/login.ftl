@@ -22,7 +22,7 @@
                     alt="">
                 <form class="form-signin" th:action="/login" method="post">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="text" name="username" class="form-control" placeholder="Email" required autofocus>
+                    <input type="email" name="username" class="form-control" placeholder="Email" required autofocus>
                     <input type="password" name="password" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
                 <#if RequestParameters.error??>

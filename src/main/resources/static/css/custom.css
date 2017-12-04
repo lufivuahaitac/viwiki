@@ -782,14 +782,14 @@ a.down:hover {
 .newtopic textarea {
     border-radius: 2px;
     box-shadow: none;
-    border: none;
-    background-color: #f1f1f1;
+    /* border: none; */
+    /* background-color: #f1f1f1; */
     padding: 20px;
     font-size: 14px;
     color: #989c9e;
-    font-family: 'Open Sans Light', sans-serif; 
+    font-family: 'Open Sans Light', sans-serif;
     margin-bottom: 20px;
-    height: 150px;
+    height: 250px;
 }
 
 .newtopic textarea:hover,

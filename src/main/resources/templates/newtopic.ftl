@@ -1,6 +1,4 @@
 <html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
-
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,67 +16,21 @@
 
         <!-- CSS STYLE-->
         <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/css/select2.min.css" media="screen" />
 
 </head>
     <body>
 
         <div class="container-fluid">
 
-            <div class="headernav">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="index.html"><img src="images/logo.jpg" alt=""></a></div>
-                        <div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
-                            <div class="dropdown">
-                                <a data-toggle="dropdown" href="#">Borderlands 2</a> <b class="caret"></b>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Borderlands 1</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Borderlands 2</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-3" href="#">Borderlands 3</a></li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
-                            <div class="wrap">
-                                <form action="#" method="post" class="form">
-                                    <div class="pull-left txt"><input type="text" class="form-control" placeholder="Search Topics"></div>
-                                    <div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
-                            <div class="stnt pull-left">                            
-                                <form action="03_new_topic.html" method="post" class="form">
-                                    <button class="btn btn-primary">Start New Topic</button>
-                                </form>
-                            </div>
-                            <div class="env pull-left"><i class="fa fa-envelope"></i></div>
-
-                            <div class="avatar pull-left dropdown">
-                                <a data-toggle="dropdown" href="#"><img src="images/avatar.jpg" alt=""></a> <b class="caret"></b>
-                                <div class="status green">&nbsp;</div>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Inbox</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-3" href="#">Log Out</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-4" href="04_new_account.html">Create account</a></li>
-                                </ul>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            <#include "headernav.ftl">
 
             <section class="content">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 breadcrumbf">
-                            <a href="#">Borderlands 2</a> <span class="diviver">&gt;</span> <a href="#">General Discussion</a> <span class="diviver">&gt;</span> <a href="#">New Topic</a>
+                            <a href="/">Trang chủ</a> <span class="diviver">&gt;</span> 
+                            <a href="#">Tạo Topic</a>
                         </div>
                     </div>
                 </div>
@@ -107,12 +59,12 @@
                                         <div class="posttext pull-left">
 
                                             <div>
-                                                <input type="text" placeholder="Enter Topic Title" class="form-control">
+                                                <input type="text" placeholder="Enter Topic Title" class="form-control" required>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6">
-                                                    <select name="category" id="category" class="form-control">
+                                                    <select name="category" id="category" class="form-control" required>
                                                         <option value="op1">Option1</option>
                                                         <option value="op2">Option2</option>
                                                     </select>
@@ -128,22 +80,12 @@
                                                         <option value="op7">Option7</option>
                                                         <option value="op8">Option8</option>
                                                         <option value="op8">Option8</option>
-                                                        <option value="op8">Option8</option>
-                                                        <option value="op8">Option8</option>
-                                                        
-                                                        <option value="op8">Option8</option>
-                                                        <option value="op8">Option8</option>
-                                                        <option value="op8">Option8</option>
-                                                        <option value="op8">Option8</option>
-                                                        
-                                                        
-                                                        
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div>
-                                                <textarea name="desc" id="desc" placeholder="Description" class="form-control"></textarea>
+                                                <textarea name="desc" id="desc" placeholder="Description" class="form-control" required></textarea>
                                             </div>
                                             <div class="row newtopcheckbox">
                                                 <div class="col-lg-6 col-md-6">
@@ -468,25 +410,8 @@
 
 
             </section>
-
-            <footer>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-1 col-xs-3 col-sm-2 logo "><a href="#"><img src="images/logo.jpg" alt=""></a></div>
-                        <div class="col-lg-8 col-xs-9 col-sm-5 ">Copyrights 2014, websitename.com</div>
-                        <div class="col-lg-3 col-xs-12 col-sm-5 sociconcent">
-                            <ul class="socialicons">
-                                <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i class="fa fa-cloud"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <#include "footer.ftl">
+            
         </div>
 
         <!-- get jQuery from the google apis -->

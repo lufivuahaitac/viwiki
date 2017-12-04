@@ -26,13 +26,13 @@ public class FrontController {
         return "index";
     }
     
-    @RequestMapping("/topic")
+    @RequestMapping("/topic/{id}")
     public String topic(Model model) {
         //model.addAttribute("name", "test");
         return "topic";
     }
     
-    @RequestMapping("/new")
+    @RequestMapping("/new/topic")
     public String newTopic(Model model) {
         //model.addAttribute("name", "test");
         return "newtopic";
