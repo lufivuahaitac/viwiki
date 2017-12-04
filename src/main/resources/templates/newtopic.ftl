@@ -48,7 +48,7 @@
                                     <div class="topwrap">
                                         <div class="userinfo pull-left">
                                             <div class="avatar">
-                                                <img src="images/avatar4.jpg" alt="">
+                                                <img src="/images/avatar4.jpg" alt="">
                                                 <div class="status red">&nbsp;</div>
                                             </div>
 
