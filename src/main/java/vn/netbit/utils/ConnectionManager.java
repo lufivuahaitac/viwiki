@@ -29,6 +29,7 @@ public class ConnectionManager {
         ds.setMinimumIdle(DatabaseConfig.MinPoolSize());
         ds.setMaximumPoolSize(DatabaseConfig.MaxPoolSize());
         ds.setConnectionTimeout(DatabaseConfig.connection_timeout());
+        ds.setMaxLifetime(240000);
     }
 
     private static final class SingletonHolder {
