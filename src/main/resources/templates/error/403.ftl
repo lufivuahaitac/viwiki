@@ -9,7 +9,7 @@
 
     <div class="starter-template">
         <h1>403 - Access is denied</h1>
-        <div th:inline="text">Chào '[[${#httpServletRequest.remoteUser}]]', bạn không có quyền truy cập chức năng này.</div>
+        <div th:inline="text">Bạn không có quyền truy cập chức năng này.</div>
     </div>
 
 </div>

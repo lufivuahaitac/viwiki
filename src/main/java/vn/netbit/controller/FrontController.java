@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import vn.netbit.utils.ConnectionManager;
 
 /**
  *
@@ -23,7 +22,6 @@ public class FrontController {
     @RequestMapping("/")
     public String index(Model model) {
         logger.info("Start index");
-        ConnectionManager.getInstance().getConnection();
         model.addAttribute("name", "test");
         return "index";
     }

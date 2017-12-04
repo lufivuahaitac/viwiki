@@ -40,4 +40,16 @@ public class DatabaseConfig {
         return Config.getDatabaseConfig().getInt("MaxPoolSize", 40);
     }
 
+    public static String insertUser() {
+        return Config.getDatabaseConfig().getString("INSERT_USER", "");
+    }
+
+    public static String getUser() {
+        return Config.getDatabaseConfig().getString("GET_USER", "");
+    }
+
+    public static String getRoles() {
+        return Config.getDatabaseConfig().getString("GET_ROLES", "");
+    }
+
 }

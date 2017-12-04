@@ -20,18 +20,22 @@
                         alt="">
                     <form name="user" class="form-signin" action="/register" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <input type="text" name="name" class="form-control" placeholder="Họ và tên" required autofocus>
-                        <input type="email" name="userName" class="form-control" placeholder="Email" required>
+                        <input type="text" name="name" class="form-control" value="${user.name!}" placeholder="Họ và tên" required autofocus>
+                        <input type="email" name="userName" class="form-control" value="${user.userName!}" placeholder="Email" required>
                         <label class="checkbox pull-left">
                             <input type="checkbox" name="term" required>
                             Đồng ý với <a href="">điều khoản và nội quy</a>.
                         </label>
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng ký</button>
-                        <p class="error-msg">
+                        <#if msg??>
+                        <p class="error-msg" >
+                            ${msg}
                         </p>
+                        </#if>
                     </form>
                 </div>
-                <a href="/login" class="text-center  new-account">Đăng nhập nếu đã có tài khoản</a>
+                <a href="/login" class="text-left  new-account col-sm-6">Đăng nhập</a>
+                <a href="/forgotpassword" class="text-right  new-account col-sm-6">Quên mật khẩu</a>
             </div>
         </div>
     </div>
