@@ -39,12 +39,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
-
-
-
                             <!-- POST -->
                             <div class="post">
-                                <form action="#" class="form newtopic" method="post">
+                                <form action="/new/topic" class="form newtopic" method="post">
                                     <div class="topwrap">
                                         <div class="userinfo pull-left">
                                             <div class="avatar">
@@ -59,7 +56,7 @@
                                         <div class="posttext pull-left">
 
                                             <div>
-                                                <input type="text" placeholder="Enter Topic Title" class="form-control" required>
+                                                <input type="text" name="title" placeholder="Enter Topic Title" class="form-control" required>
                                             </div>
 
                                             <div class="row">

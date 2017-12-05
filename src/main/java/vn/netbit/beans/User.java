@@ -17,6 +17,7 @@ public class User implements Serializable{
     private String userName;
     private String passWord;
     private String name;
+    private String email;
     private List<String> roles;
 
     public int getId() {
@@ -51,6 +52,14 @@ public class User implements Serializable{
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public List<String> getRoles() {
         return roles;
     }
@@ -61,7 +70,7 @@ public class User implements Serializable{
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", name=" + name + ", roles=" + roles + '}';
+        return "User{" + "id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", name=" + name + ", email=" + email + ", roles=" + roles + '}';
     }
 
 }

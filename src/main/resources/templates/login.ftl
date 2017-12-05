@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,8 +21,8 @@
                     alt="">
                 <form class="form-signin" th:action="/login" method="post">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="email" name="username" class="form-control" placeholder="Email" required autofocus>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <input maxlength="20" type="text" name="username" class="form-control" placeholder="Tài khoản hoặc Email" required autofocus>
+                    <input maxlength="100" type="password" name="password" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
                 <#if RequestParameters.error??>
                 <p class="error-msg" >

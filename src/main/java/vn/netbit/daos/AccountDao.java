@@ -54,7 +54,7 @@ public class AccountDao {
             st = con.prepareCall(sql);
             st.setString("USER_NAME", requestBean.getUserName());
             st.setString("PASS_WORD", requestBean.getPassWord());
-            st.setString("NAME", requestBean.getName());
+            st.setString("EMAIL", requestBean.getEmail());
             st.registerOutParameter("CODE", Types.VARCHAR);
             st.execute();
             String result = st.getString("CODE");

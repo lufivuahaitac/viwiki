@@ -20,8 +20,8 @@
                         alt="">
                     <form name="user" class="form-signin" action="/register" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <input type="text" name="name" class="form-control" value="${user.name!}" placeholder="Họ và tên" required autofocus>
-                        <input type="email" name="userName" class="form-control" value="${user.userName!}" placeholder="Email" required>
+                        <input maxlength="20" type="text" name="userName" class="form-control" value="${user.userName!}" placeholder="Tài khoản" ma required autofocus>
+                        <input maxlength="100" type="email" name="email" class="form-control" value="${user.email!}" placeholder="Email" required>
                         <label class="checkbox pull-left">
                             <input type="checkbox" name="term" required>
                             Đồng ý với <a href="">điều khoản và nội quy</a>.
