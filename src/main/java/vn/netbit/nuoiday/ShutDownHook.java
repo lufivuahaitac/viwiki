@@ -7,6 +7,8 @@ package vn.netbit.nuoiday;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vn.netbit.config.ServerSocketIO;
+import vn.netbit.utils.ConnectionManager;
 
 /**
  *
@@ -19,8 +21,12 @@ public class ShutDownHook extends Thread {
     @Override
     public void run() {
         try {
-            LOGGER.info("Shutdown hook sucecss");
-            System.out.println("Shutdown hook sucecss");
+            ConnectionManager.getInstance().destroy();
+            LOGGER.info("ConnectionManager destroy Success");
+
+            boolean sss = ServerSocketIO.getInstance().shutdown();
+
+            LOGGER.info("Shutdown SocketServer: {}", sss);
         } catch (Exception ex) {
             LOGGER.error("ShutDownHook have ex: {}.", ex);
         }

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import vn.netbit.config.Config;
+import vn.netbit.config.ServerSocketIO;
 import vn.netbit.utils.ConnectionManager;
 import vn.netbit.utils.ShutdownListener;
 
@@ -24,6 +25,8 @@ public class Application {
         loadLogger();
         Config.init();
         ConnectionManager.getInstance();
+        ServerSocketIO.getInstance();
+        System.setProperty("spring.devtools.restart.enabled", "false");
         //Runtime.getRuntime().addShutdownHook(new ShutDownHook());
         SpringApplication app = new SpringApplication(Application.class);
         app.addListeners(new ShutdownListener());

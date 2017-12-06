@@ -39,6 +39,17 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script>
+    var socket = io.connect("http://localhost:8888");
+    socket.on('message', function (data) {
+     console.log(data);
+    });
+   
+    socket.emit('join', 'roomName');
+    socket.emit('leave', 'roomName');
+        
 
+</script>
 </body>
 </html>
