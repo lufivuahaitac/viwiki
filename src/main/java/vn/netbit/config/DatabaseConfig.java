@@ -52,4 +52,12 @@ public class DatabaseConfig {
         return Config.getDatabaseConfig().getString("GET_ROLES", "");
     }
 
+    public static String getTaxonomy() {
+        return Config.getDatabaseConfig().getString("GET_TAXONOMY", "");
+    }
+
+    public static String insertTaxonomy() {
+        return Config.getDatabaseConfig().getString("INSERT_TAXONOMY", "");
+    }
+
 }

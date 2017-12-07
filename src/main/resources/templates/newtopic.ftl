@@ -56,27 +56,26 @@
                                         <div class="posttext pull-left">
 
                                             <div>
-                                                <input type="text" name="title" placeholder="Enter Topic Title" class="form-control" required>
+                                                <input type="text" name="title" placeholder="Tiêu đề" class="form-control" required>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6">
                                                     <select name="category" id="category" class="form-control" required>
-                                                        <option value="op1">Option1</option>
-                                                        <option value="op2">Option2</option>
+                                                        <#list taxonomyList as category>
+                                                            <#if category.taxonomyType == "category" >
+                                                            <option value="${category.id}">${category.taxonomyName}</option>
+                                                            </#if>
+                                                        </#list>
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <select name="tags[]" id="tags" class="form-control" multiple="multiple">
-                                                        <option value="op1">Option1</option>
-                                                        <option value="op2">Option2</option>
-                                                        <option value="op3">Option3</option>
-                                                        <option value="op4">Option4</option>
-                                                        <option value="op5">Option5</option>
-                                                        <option value="op6">Option6</option>
-                                                        <option value="op7">Option7</option>
-                                                        <option value="op8">Option8</option>
-                                                        <option value="op8">Option8</option>
+                                                        <#list taxonomyList as category>
+                                                            <#if category.taxonomyType == "tag" >
+                                                            <option value="${category.id}">${category.taxonomyName}</option>
+                                                            </#if>
+                                                        </#list>
                                                     </select>
                                                 </div>
                                             </div>
@@ -420,9 +419,73 @@
         <script src="/js/select2.min.js"></script>
         <script>
             $(document).ready(function() {
-                $('#tags').select2();
+                //$('#tags').select2();
                 //$('#category').select2();
+                $('#tags').select2({
+                    tags: true,
+                    tokenSeparators: [","],
+                    createTag: function (tag) {
+                        return {
+                            id: tag.term,
+                            text: tag.term,
+                            isNew : true
+                        };
+                    }
+                }).on("select2:select", function(e) {
+                    if(e.params.data.isNew){
+                       newTAG(e);
+                    }
+                });
             });
+                
+            function newTAG(e){
+                $.ajax({
+                    type: 'POST',
+                    url:  'newTag',
+                    data: 'tag=' + e.params.data.text,
+                    success: function (response) {
+                        if(response===''){
+                            return;
+                        }
+                        try {
+                            var tag = JSON.parse(response);
+                            $(this).find('[value="'+e.params.data.id+'"]').replaceWith('<option selected value="'+ tag.id +'">'+tag.taxonomyName+'</option>');
+                        } catch ( ex){
+                            console.log(ex);
+                        }
+                    }
+                });
+            }
+                
+            function ChangeToSlug(title){
+                var  slug;
+
+                //Lấy text từ thẻ input title
+                //title = document.getElementById("title").value;
+
+                //Đổi chữ hoa thành chữ thường
+                slug = title.toLowerCase();
+
+                //Đổi ký tự có dấu thành không dấu
+                slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+                slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+                slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+                slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+                slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+                slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+                slug = slug.replace(/đ/gi, 'd');
+                //Xóa các ký tự đặt biệt
+                slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+                //Đổi khoảng trắng thành ký tự gạch ngang
+                slug = slug.replace(/ +/gi, "-");
+                //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+                //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+                slug = slug.replace(/\-+/gi, '-');
+                //Xóa các ký tự gạch ngang ở đầu và cuối
+                slug = '@' + slug + '@';
+                slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+                return slug;
+            }
         </script>
         </body>
 </html>

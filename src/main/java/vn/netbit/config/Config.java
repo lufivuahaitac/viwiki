@@ -20,6 +20,7 @@ public class Config implements Runnable {
     private static Logger logger = LogManager.getLogger(Config.class);
     private static final long serialVersionUID = 1L;
     private static PropertiesConfiguration databaseConfig;
+    private static PropertiesConfiguration appConfig;
     
 
     /**
@@ -32,6 +33,10 @@ public class Config implements Runnable {
             String databseConfigPath = "./config/DatabaseConfig.properties";
             databaseConfig = new PropertiesConfiguration(databseConfigPath);
             databaseConfig.setReloadingStrategy(new FileChangedReloadingStrategy());
+            
+            String appConfigPath = "./config/AppConfig.properties";
+            appConfig = new PropertiesConfiguration(appConfigPath);
+            appConfig.setReloadingStrategy(new FileChangedReloadingStrategy());
 
             
         } catch (ConfigurationException e) {
@@ -44,6 +49,14 @@ public class Config implements Runnable {
      */
     public static PropertiesConfiguration getDatabaseConfig() {
         return databaseConfig;
+    } 
+    
+    /**
+     *
+     * @return
+     */
+    public static PropertiesConfiguration getAppConfig() {
+        return appConfig;
     } 
 
 

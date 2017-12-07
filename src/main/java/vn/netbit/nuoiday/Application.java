@@ -9,6 +9,7 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import vn.netbit.config.Config;
@@ -16,7 +17,8 @@ import vn.netbit.config.ServerSocketIO;
 import vn.netbit.utils.ConnectionManager;
 import vn.netbit.utils.ShutdownListener;
 
-@SpringBootApplication(scanBasePackages={"vn.netbit.controller" })
+@SpringBootApplication(scanBasePackages={"vn.netbit.controller, vn.netbit.cache" })
+@EnableScheduling
 public class Application {
     
     private static Logger logger;

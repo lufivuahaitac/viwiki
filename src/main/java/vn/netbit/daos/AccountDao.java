@@ -58,7 +58,7 @@ public class AccountDao {
             st.registerOutParameter("CODE", Types.VARCHAR);
             st.execute();
             String result = st.getString("CODE");
-            LOGGER.error("insertUser... result: {}", result);
+            LOGGER.info("insertUser... result: {}", result);
             return result;
         } catch (Exception ex) {
             LOGGER.error("insertUser...failed. Error: {}", ex);
@@ -89,7 +89,7 @@ public class AccountDao {
                 user.setUserName(rs.getString("USER_NAME"));
                 user.setPassWord(rs.getString("USER_PASS"));
             }
-            LOGGER.error("getUser... Success: {}");
+            LOGGER.info("getUser... Success: {}");
         } catch (Exception ex) {
             LOGGER.error("getUser...failed. Error: {}", ex);
         } finally {
@@ -117,7 +117,7 @@ public class AccountDao {
             while(rs.next()){
                 roles.add(rs.getString("ROLE"));
             }
-            LOGGER.error("getRoles... Success: {}");
+            LOGGER.info("getRoles... Success: {}");
         } catch (Exception ex) {
             LOGGER.error("getRoles...failed. Error: {}", ex);
         } finally {

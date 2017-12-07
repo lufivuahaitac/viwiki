@@ -6,8 +6,11 @@
 package vn.netbit.utils;
 
 import java.security.MessageDigest;
+import java.text.Normalizer;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
+import java.util.regex.Pattern;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -25,6 +28,22 @@ import org.apache.logging.log4j.Logger;
 public class Utils {
     private static final Logger logger = LogManager.getLogger(Utils.class);
     public static final String EMPTY = "";
+    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
+    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
+    private static final Pattern GACHNGANGDAUCUOI = Pattern.compile("(^-+|-+$)");
+    private static final Pattern NHIEUGACHNGANG = Pattern.compile("-+");
+    private static final Pattern XOADAU = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+
+    public static String toSlug(String input) {
+        input = Normalizer.normalize(input, Normalizer.Form.NFD);
+        input = WHITESPACE.matcher(input).replaceAll("-");
+        input = XOADAU.matcher(input).replaceAll("");
+        input = input.replaceAll("đ","d").replaceAll("Đ","D");
+        input = NONLATIN.matcher(input).replaceAll("");
+        input = GACHNGANGDAUCUOI.matcher(input).replaceAll("");
+        input = NHIEUGACHNGANG.matcher(input).replaceAll("-");
+        return input.toLowerCase(Locale.ENGLISH);
+    }
     
     public static boolean isNullOrEmpty(String value) {
         return value == null || value.trim().isEmpty();
@@ -120,5 +139,5 @@ public class Utils {
             return false;
         }
     }
-
+    
 }
