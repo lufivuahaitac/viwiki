@@ -26,8 +26,8 @@ import vn.netbit.utils.Utils;
 @Controller
 public class FrontController {
 
-    private static Logger LOGGER = LogManager.getLogger(FrontController.class);
-    private static Gson GSON = new Gson();
+    private static final Logger LOGGER = LogManager.getLogger(FrontController.class);
+    private static final Gson GSON = new Gson();
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -35,14 +35,31 @@ public class FrontController {
         return "index";
     }
 
-    @RequestMapping("/topic/{id}")
+    @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
     public String topic(Model model) {
         //model.addAttribute("name", "test");
         return "topic";
     }
 
-    @RequestMapping("/new/topic")
+    /**
+     * 
+     * @param model
+     * @return 
+     */
+    @RequestMapping(value = "/new/topic", method = RequestMethod.GET)
     public String newTopic(Model model) {
+        model.addAttribute("taxonomyList", CacheManager.getInstance().getTaxonomyList());
+        return "newtopic";
+    }
+    
+    /**
+     *
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/new/topic", method = RequestMethod.POST)
+    public String newTopic(Model model, HttpServletRequest request) {
         model.addAttribute("taxonomyList", CacheManager.getInstance().getTaxonomyList());
         return "newtopic";
     }
