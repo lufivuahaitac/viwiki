@@ -89,11 +89,11 @@
                                 <div class="postinfobot">
 
                                     <div class="notechbox pull-left">
-                                        <input type="checkbox" name="note" id="note" class="form-control">
+                                        <input type="checkbox" name="reg-notify" id="reg-notify" class="form-control" checked>
                                         </div>
 
                                     <div class="pull-left">
-                                        <label for="note"> Email me when some one post a reply</label>
+                                        <label for="note">Thông báo khi có bình luận</label>
                                         </div>
 
                                     <div class="pull-right postreply">
@@ -393,7 +393,7 @@
             $.ajax({
                 type: 'POST',
                 url:  '/newTag',
-                data: 'tag=' + e.params.data.text,
+                data: {tag:e.params.data.text},
                 success: function (response) {
                     if(response===''){
                         $("#tags").next(".select2").find("li[title='" + e.params.data.text +"']").remove();

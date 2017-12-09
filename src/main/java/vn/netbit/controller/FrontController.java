@@ -34,6 +34,11 @@ public class FrontController {
         model.addAttribute("name", "test");
         return "index";
     }
+    
+    @RequestMapping("/markdown")
+    public String markdown() {
+        return "markdown";
+    }
 
     @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
     public String topic(Model model) {
