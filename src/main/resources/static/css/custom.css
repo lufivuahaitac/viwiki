@@ -1237,3 +1237,12 @@ a.down:hover {
         padding: 0;
     }
 }
+
+
+.pull-left.smile {
+    padding-top: 15px;
+}
+
+.pull-left.submitbtn {
+    padding-top: 5px;
+}

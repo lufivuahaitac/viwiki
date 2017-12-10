@@ -98,7 +98,7 @@
 
                                     <div class="pull-right postreply">
                                         <div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
-                                        <div class="pull-left"><button type="submit" class="btn btn-primary">Post</button></div>
+                                        <div class="pull-left submitbtn"><button type="submit" class="btn btn-primary">Post</button></div>
                                         <div class="clearfix"></div>
                                         </div>
 
