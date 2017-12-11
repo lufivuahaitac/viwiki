@@ -9,12 +9,17 @@ import com.google.gson.Gson;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import vn.netbit.beans.Post;
 import vn.netbit.beans.Taxonomy;
+import vn.netbit.beans.UserLogged;
 import vn.netbit.cache.CacheManager;
 import vn.netbit.daos.CmsDao;
 import vn.netbit.utils.Utils;
@@ -63,10 +68,26 @@ public class FrontController {
      * @param request
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/new/topic", method = RequestMethod.POST)
-    public String newTopic(Model model, HttpServletRequest request) {
-        model.addAttribute("taxonomyList", CacheManager.getInstance().getTaxonomyList());
-        return "newtopic";
+    public String newTopic(Model model, 
+                           HttpServletRequest request,
+                           @RequestBody Post post) {
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            UserLogged user = (UserLogged)auth.getPrincipal();
+            
+            post.setUserId(user.getId());
+            post.setUrl(Utils.toSlug(post.getTitle()));
+            int id = CmsDao.getInstance().createPost(post);
+            if(id<=0){
+                return "";
+            }
+            return "/topic/" + post.getUrl();
+        } catch (Exception e) {
+            LOGGER.error("Create newTopic ex: {}", e);
+            return "";
+        }
     }
 
     @ResponseBody

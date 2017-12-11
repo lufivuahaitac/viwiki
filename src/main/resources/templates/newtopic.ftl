@@ -16,7 +16,9 @@
         <link rel="stylesheet" href="/font-awesome-4.0.3/css/font-awesome.min.css">
         <!-- CSS STYLE-->
         <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="/css/select2.min.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/css/select2.min.css" media="screen" />\
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     </head>
 <body>
 
@@ -40,7 +42,7 @@
                     <div class="col-lg-8 col-md-8">
                         <!-- POST -->
                         <div class="post">
-                            <form action="/new/topic" class="form newtopic" method="post">
+                            <form name="post" action="/new/topic" class="form newtopic" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <div class="topwrap">
                                     <div class="userinfo pull-left">
@@ -56,24 +58,24 @@
                                     <div class="posttext pull-left">
 
                                         <div>
-                                            <input type="text" name="title" placeholder="Tiêu đề" class="form-control" required>
-                                            </div>
+                                            <input type="text" id="title" name="title" placeholder="Tiêu đề" class="form-control" required>
+                                        </div>
 
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
                                                 <select name="category" id="category" class="form-control" required>
                                                     <#list taxonomyList as category>
                                                         <#if category.taxonomyType == "category" >
-                                                    <option value="${category.id}">${category.taxonomyName}</option>
+                                                            <option value="${category.id}">${category.taxonomyName}</option>
                                                         </#if>
                                                     </#list>
-                                                    </select>
-                                                </div>
+                                                </select>
+                                            </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <select name="tags[]" id="tags" class="form-control" multiple="multiple">
                                                     <#list taxonomyList as category>
                                                         <#if category.taxonomyType == "tag" >
-                                                    <option value="${category.id}">${category.taxonomyName}</option>
+                                                            <option value="${category.id}">${category.taxonomyName}</option>
                                                         </#if>
                                                     </#list>
                                                     </select>
@@ -81,15 +83,14 @@
                                             </div>
 
                                         <div>
-                                            <textarea name="desc" id="desc" placeholder="Description" class="form-control" required></textarea>
+                                            <textarea name="content" id="content" placeholder="Nội dung" class="form-control" required></textarea>
                                         </div>
-                                                                            </div>
+                                    </div>
                                     <div class="clearfix"></div>
-                                    </div>                              
+                                </div>                              
                                 <div class="postinfobot">
-
                                     <div class="notechbox pull-left">
-                                        <input type="checkbox" name="reg-notify" id="reg-notify" class="form-control" checked>
+                                        <input type="checkbox" name="regnotify" id="regnotify" class="form-control" checked>
                                         </div>
 
                                     <div class="pull-left">
@@ -109,7 +110,7 @@
                             </div><!-- POST -->
 
                         <div class="row similarposts">
-                            <div class="col-lg-10"><i class="fa fa-info-circle"></i> <p>Similar Posts according to your <a href="#">Topic Title</a>.</p></div>
+                            <div class="col-lg-10"><i class="fa fa-info-circle"></i> <p>Bài viết <a href="#">tương tự</a>.</p></div>
                             <div class="col-lg-2 loading"><i class="fa fa-spinner"></i></div>
 
                             </div>
@@ -213,32 +214,25 @@
                                 <div class="time"><i class="fa fa-clock-o"></i> 2 days</div>                                    
                                 </div>
                             <div class="clearfix"></div>
-                        </div><!-- POST -->
-
-
-
-
-
-
-                        </div>
+                        </div><!-- POST -->\
+                    </div>
+                    
                     <div class="col-lg-4 col-md-4">
 
                         <!-- -->
                         <div class="sidebarblock">
-                            <h3>Categories</h3>
+                            <h3>Danh mục</h3>
                             <div class="divline"></div>
                             <div class="blocktxt">
                                 <ul class="cats">
-                                    <li><a href="#">Trading for Money <span class="badge pull-right">20</span></a></li>
-                                    <li><a href="#">Vault Keys Giveway <span class="badge pull-right">10</span></a></li>
-                                    <li><a href="#">Misc Guns Locations <span class="badge pull-right">50</span></a></li>
-                                    <li><a href="#">Looking for Players <span class="badge pull-right">36</span></a></li>
-                                    <li><a href="#">Stupid Bugs &amp; Solves <span class="badge pull-right">41</span></a></li>
-                                    <li><a href="#">Video &amp; Audio Drivers <span class="badge pull-right">11</span></a></li>
-                                    <li><a href="#">2K Official Forums <span class="badge pull-right">5</span></a></li>
-                                    </ul>
-                                </div>
+                                    <#list taxonomyList as category>
+                                        <#if category.taxonomyType == "category" >
+                                            <li><a href="/${category.taxonomyUrl}">${category.taxonomyName} <span class="badge pull-right">${category.count}</span></a></li>
+                                        </#if>
+                                    </#list>
+                                </ul>
                             </div>
+                        </div>
 
                         <!-- -->
                         <div class="sidebarblock">
@@ -368,6 +362,7 @@
             //$('#tags').select2();
             //$('#category').select2();
             $('#tags').select2({
+                placeholder: "Tags",
                 tags: true,
                 tokenSeparators: [","],
                 createTag: function (tag) {
@@ -418,35 +413,44 @@
                 }
             });
         }
-
-        function ChangeToSlug(title){
-            var  slug;
-
-            //Lấy text từ thẻ input title
-            //title = document.getElementById("title").value;
-
-            //Đổi chữ hoa thành chữ thường
-            slug = title.toLowerCase();
-
-            //Đổi ký tự có dấu thành không dấu
-            slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
-            slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
-            slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
-            slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
-            slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
-            slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
-            slug = slug.replace(/đ/gi, 'd');
-            //Xóa các ký tự đặt biệt
-            slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
-            //Đổi khoảng trắng thành ký tự gạch ngang
-            slug = slug.replace(/ +/gi, "-");
-            //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
-            //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
-            slug = slug.replace(/\-+/gi, '-');
-            //Xóa các ký tự gạch ngang ở đầu và cuối
-            slug = '@' + slug + '@';
-            slug = slug.replace(/\@\-|\-\@|\@/gi, '');
-            return slug;
+        var simplemde = new SimpleMDE({
+            autosave: {
+		enabled: true,
+		uniqueId: "newPost",
+		delay: 1000,
+            },
+            element: document.getElementById("content"),
+            placeholder: "Nội dung",
+            spellChecker: false,
+            toolbarTips: true
+        });
+        var title = $("#title");
+        var category = $("#category");
+        var tags = $("#tags");
+        var regnotify = $("#regnotify");
+        function submit(){
+            var fdt = {
+                        title: title.val(),
+                        category: category.val(),
+                        tags: tags.val(),
+                        regnotify: regnotify.val(),
+                        content: simplemde.value() 
+                      };
+            $.ajax({
+                type: 'POST',
+                url:  '/new/topic',
+                contentType : 'application/json; charset=utf-8',
+                data: JSON.stringify(fdt),
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                },
+                complete: function(){
+                    
+                }
+            });
         }
         </script>
     </body>

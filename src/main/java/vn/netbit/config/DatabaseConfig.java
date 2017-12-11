@@ -60,4 +60,8 @@ public class DatabaseConfig {
         return Config.getDatabaseConfig().getString("INSERT_TAXONOMY", "");
     }
 
+    public static String insertPost() {
+        return Config.getDatabaseConfig().getString("INSERT_POST", "");
+    }
+
 }

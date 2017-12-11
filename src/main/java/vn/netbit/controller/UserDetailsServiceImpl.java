@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vn.netbit.beans.User;
+import vn.netbit.beans.UserLogged;
 import vn.netbit.daos.AccountDao;
 
 @Service
@@ -43,8 +44,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role));
         }
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUserName(), user.getPassWord(), grantedAuthorities);
+        UserLogged u = new UserLogged(user.getUserName(), user.getPassWord(), grantedAuthorities);
+        u.setId(user.getId());
+        u.setName(user.getEmail());
+        
+        return u;
     }
 
     
