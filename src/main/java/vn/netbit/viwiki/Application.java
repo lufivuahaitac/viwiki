@@ -1,4 +1,4 @@
- package vn.netbit.nuoiday;
+ package vn.netbit.viwiki;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import vn.netbit.config.Config;
-import vn.netbit.config.ServerSocketIO;
 import vn.netbit.utils.ConnectionManager;
 import vn.netbit.utils.ShutdownListener;
 
@@ -27,7 +26,6 @@ public class Application {
         loadLogger();
         Config.init();
         ConnectionManager.getInstance();
-        ServerSocketIO.getInstance();
         System.setProperty("spring.devtools.restart.enabled", "false");
         //Runtime.getRuntime().addShutdownHook(new ShutDownHook());
         SpringApplication app = new SpringApplication(Application.class);
@@ -42,7 +40,7 @@ public class Application {
         @Override
         public void configurePathMatch(PathMatchConfigurer configurer) {
             configurer.setUseSuffixPatternMatch(false);
-            //Bỏ vào dc /admin.abc hoặc /admin.jfdkalf
+            //Loại đường dẫn vào dc /admin.abc hoặc /admin.jfdkalf
         }
     }
     

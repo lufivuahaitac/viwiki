@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vn.netbit.nuoiday;
+package vn.netbit.viwiki;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import vn.netbit.config.ServerSocketIO;
 import vn.netbit.utils.ConnectionManager;
 
 /**
@@ -24,9 +23,6 @@ public class ShutDownHook extends Thread {
             ConnectionManager.getInstance().destroy();
             LOGGER.info("ConnectionManager destroy Success");
 
-            boolean sss = ServerSocketIO.getInstance().shutdown();
-
-            LOGGER.info("Shutdown SocketServer: {}", sss);
         } catch (Exception ex) {
             LOGGER.error("ShutDownHook have ex: {}.", ex);
         }

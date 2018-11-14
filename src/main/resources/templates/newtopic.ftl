@@ -16,9 +16,9 @@
         <link rel="stylesheet" href="/font-awesome-4.0.3/css/font-awesome.min.css">
         <!-- CSS STYLE-->
         <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="/css/select2.min.css" media="screen" />\
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/select2.min.css" media="screen" />
+        <link rel="stylesheet" href="/css/simplemde.min.css">
+        <script src="/js/simplemde.min.js"></script>
     </head>
 <body>
 
@@ -42,7 +42,7 @@
                     <div class="col-lg-8 col-md-8">
                         <!-- POST -->
                         <div class="post">
-                            <form name="post" action="/new/topic" class="form newtopic" method="post">
+                            <form name="post" action="#" th:action="@{/new/topic}" th:object="${Post}" class="form newtopic" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <div class="topwrap">
                                     <div class="userinfo pull-left">
@@ -63,7 +63,7 @@
 
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
-                                                <select name="category" id="category" class="form-control" required>
+                                                <select name="category" id="category" th:field="*{category}" class="form-control" required>
                                                     <#list taxonomyList as category>
                                                         <#if category.taxonomyType == "category" >
                                                             <option value="${category.id}">${category.taxonomyName}</option>
@@ -72,7 +72,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
-                                                <select name="tags[]" id="tags" class="form-control" multiple="multiple">
+                                                <select name="tags[]" id="tags" th:field="*{tags}" class="form-control" multiple="multiple">
                                                     <#list taxonomyList as category>
                                                         <#if category.taxonomyType == "tag" >
                                                             <option value="${category.id}">${category.taxonomyName}</option>
@@ -83,14 +83,14 @@
                                             </div>
 
                                         <div>
-                                            <textarea name="content" id="content" placeholder="Nội dung" class="form-control" required></textarea>
+                                            <textarea th:field="*{content}" name="content" id="content" placeholder="Nội dung" class="form-control" required></textarea>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>                              
                                 <div class="postinfobot">
                                     <div class="notechbox pull-left">
-                                        <input type="checkbox" name="regnotify" id="regnotify" class="form-control" checked>
+                                        <input th:field="*{regnotify}" type="checkbox" name="regnotify" id="regnotify" class="form-control" checked>
                                         </div>
 
                                     <div class="pull-left">
@@ -323,7 +323,7 @@
                         <div class="pull-left">
                             <ul class="paginationforum">
                                 <li class="hidden-xs"><a href="#">1</a></li>
-                                <li class="hidden-xs"><a href="#">2</a></li>
+                                <li class="hidden-xs"><a href="#">...</a></li>
                                 <li class="hidden-xs"><a href="#">3</a></li>
                                 <li class="hidden-xs"><a href="#">4</a></li>
                                 <li><a href="#">5</a></li>
@@ -333,7 +333,7 @@
                                 <li class="hidden-xs"><a href="#">9</a></li>
                                 <li class="hidden-xs"><a href="#">10</a></li>
                                 <li class="hidden-xs hidden-md"><a href="#">11</a></li>
-                                <li class="hidden-xs hidden-md"><a href="#">12</a></li>
+                                <li class="hidden-xs hidden-md"><a href="#">...</a></li>
                                 <li class="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
                                 <li><a href="#">1586</a></li>
                                 </ul>
@@ -422,7 +422,8 @@
             element: document.getElementById("content"),
             placeholder: "Nội dung",
             spellChecker: false,
-            toolbarTips: true
+            toolbarTips: true,
+            forceSync: true
         });
         var title = $("#title");
         var category = $("#category");

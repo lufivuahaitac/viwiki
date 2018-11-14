@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
-import vn.netbit.config.ServerSocketIO;
 
 /**
  *
@@ -23,8 +22,8 @@ public class ShutdownListener implements ApplicationListener<ContextClosedEvent>
         ConnectionManager.getInstance().destroy();
         LOGGER.info("ConnectionManager destroy Success");
         
-        boolean sss = ServerSocketIO.getInstance().shutdown();
-        
-        LOGGER.info("Shutdown SocketServer: {}", sss);
+//        boolean sss = ServerSocketIO.getInstance().shutdown();
+//        
+//        LOGGER.info("Shutdown SocketServer: {}", sss);
     }
 }

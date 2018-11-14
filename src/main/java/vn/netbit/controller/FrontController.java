@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,7 +43,7 @@ public class FrontController {
     
     @RequestMapping("/markdown")
     public String markdown() {
-        return "markdown";
+        return "Commons/markdown";
     }
 
     @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
@@ -57,8 +58,9 @@ public class FrontController {
      * @return 
      */
     @RequestMapping(value = "/new/topic", method = RequestMethod.GET)
-    public String newTopic(Model model) {
+    public String newTopic(Model model, @ModelAttribute(value="Post") Post post) {
         model.addAttribute("taxonomyList", CacheManager.getInstance().getTaxonomyList());
+        model.addAttribute("Post", post);
         return "newtopic";
     }
     
