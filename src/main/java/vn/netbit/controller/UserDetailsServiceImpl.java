@@ -11,6 +11,7 @@ package vn.netbit.controller;
  */
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.security.authentication.BadCredentialsException;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,11 +30,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //    private PasswordEncoder passwordEncoder;
     
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws BadCredentialsException {
         User user = AccountDao.getInstance().getUser(username);
        
         if (user == null) {
-            throw new UsernameNotFoundException("Người dùng không tồn tại");
+            throw new BadCredentialsException("Người dùng không tồn tại");
         }
         
         user.setRoles(AccountDao.getInstance().getRoles(user.getId()));

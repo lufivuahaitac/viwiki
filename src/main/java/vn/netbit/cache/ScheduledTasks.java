@@ -26,6 +26,6 @@ public class ScheduledTasks {
     
     @Scheduled(fixedDelay = 10000)
     public void reportCurrentTime() {
-        CacheManager.getInstance().setTaxonomyList(CacheDao.getInstance().getTaxonomy());
+        //CacheManager.getInstance().setTaxonomyList(CacheDao.getInstance().getTaxonomy());
     }
 }

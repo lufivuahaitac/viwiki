@@ -5,10 +5,12 @@
  */
 package vn.netbit.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.pegdown.PegDownProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import vn.netbit.beans.User;
 import vn.netbit.daos.AccountDao;
@@ -79,10 +82,16 @@ public class AccountController {
     }
 
     @RequestMapping("/login")
-    public String login() {
+    public String login(@RequestParam(name = "error", required = false) String error,
+                         HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             return "redirect:/";
+        }
+        if(null != error) {
+            String msg = (String) request.getSession().getAttribute("errMsg");
+            request.getSession().removeAttribute("errMsg");
+            request.setAttribute("msg", msg);
         }
         return "login";
     }
