@@ -18,8 +18,9 @@ import vn.netbit.config.DatabaseConfig;
  */
 public class ConnectionManager {
     private static Logger logger = LogManager.getLogger(ConnectionManager.class);
-    
+
     private static HikariDataSource ds;
+
     private ConnectionManager() {
         ds = new HikariDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
@@ -40,8 +41,8 @@ public class ConnectionManager {
     public static ConnectionManager getInstance() {
         return SingletonHolder.INSTANCE;
     }
-   
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         try {
             return ds.getConnection();
         } catch (SQLException ex) {
@@ -49,8 +50,8 @@ public class ConnectionManager {
             return null;
         }
     }
-    
-    public void destroy(){
+
+    public void destroy() {
         ds.close();
-    } 
+    }
 }

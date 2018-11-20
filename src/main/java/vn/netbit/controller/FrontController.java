@@ -41,36 +41,41 @@ public class FrontController {
         model.addAttribute("name", "test");
         return "index";
     }
-    
+
+    @RequestMapping("/new")
+    public String newTarget(Model model) {
+        return "new";
+    }
+
     @RequestMapping("/markdown")
     public String markdown() {
         return "Commons/markdown";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String topic(Model model, @PathVariable(value="id") String id) {
-        //model.addAttribute("name", "test");
+    public String topic(Model model, @PathVariable(value = "id") String id) {
+        // model.addAttribute("name", "test");
         return id;
     }
-    
+
     @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
     public String topic(Model model) {
-        //model.addAttribute("name", "test");
+        // model.addAttribute("name", "test");
         return "topic";
     }
 
     /**
      * 
      * @param model
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/new/topic", method = RequestMethod.GET)
-    public String newTopic(Model model, @ModelAttribute(value="Post") Post post) {
+    public String newTopic(Model model, @ModelAttribute(value = "Post") Post post) {
         model.addAttribute("taxonomyList", CacheManager.getInstance().getTaxonomyList());
         model.addAttribute("Post", post);
         return "newtopic";
     }
-    
+
     /**
      *
      * @param model
@@ -79,17 +84,15 @@ public class FrontController {
      */
     @ResponseBody
     @RequestMapping(value = "/new/topic", method = RequestMethod.POST)
-    public String newTopic(Model model, 
-                           HttpServletRequest request,
-                           @RequestBody Post post) {
+    public String newTopic(Model model, HttpServletRequest request, @RequestBody Post post) {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            UserLogged user = (UserLogged)auth.getPrincipal();
-            
+            UserLogged user = (UserLogged) auth.getPrincipal();
+
             post.setUserId(user.getId());
             post.setUrl(Utils.toSlug(post.getTitle()));
             int id = CmsDao.getInstance().createPost(post);
-            if(id<=0){
+            if (id <= 0) {
                 return "";
             }
             return "/topic/" + post.getUrl();
@@ -109,7 +112,7 @@ public class FrontController {
             taxonomy.setTaxonomyType("tag");
             taxonomy.setTaxonomyUrl(Utils.toSlug(tag));
             int id = CmsDao.getInstance().createTaxonomy(taxonomy);
-            if(id<=0){
+            if (id <= 0) {
                 return "";
             }
             taxonomy.setId(id);
