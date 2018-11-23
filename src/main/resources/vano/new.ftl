@@ -132,8 +132,7 @@
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<div class="form-group">
 									<label>Quốc gia (*)</label>
-									<select ng-model="formData.country" ng-disable="true" id="country" name="country" class="js-country-selector form-control"
-									 name="">
+									<select ng-model="formData.country" ng-disable="true" id="country" name="country" class="js-country-selector form-control">
 										<option value="VN" selected="selected" required>Việt Nam</option>
 									</select>
 								</div>
@@ -144,8 +143,12 @@
 								</div>
 								<div class="form-group">
 									<label>Địa chỉ (*)</label>
-									<input class="form-control" type="text" placeholder="Địa chỉ">
+									<input ng-autocomplete options="businessAddressOptions" details="businessAddressDetails" ng-model="formData.businessAddress" class="form-control" type="text" placeholder="Địa chỉ"  autocomplete="off">
 								</div>
+                                                                <datalist id="suggestAddress">
+                                                                    <option ng-repeat="location in locationList" value="{{location.label}}" locationId="{{location.locationId}}">
+                                                                </datalist >
+
 								<div class="row" id="addressinfo">
 									<div class="col-lg-4">
 										<div class="form-group">
@@ -184,20 +187,20 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Điện thoại liên hệ (*)</label>
-											<input class="form-control" placeholder="Số điện thoại" required></input>
+											<input class="form-control" placeholder="Số điện thoại" required>
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label>Email (*)</label>
-											<input class="form-control" placeholder="Email" required></input>
+											<input class="form-control" placeholder="Email" required>
 										</div>
 									</div>
 
 								</div>
 								<div class="form-group">
 									<label>Website</label>
-									<input class="form-control" placeholder="Website"></input>
+									<input class="form-control" placeholder="Website">
 								</div>
 								<div class="form-group">
 									<div class="checkboxes float-left add_bottom_15 add_top_15">
@@ -432,13 +435,69 @@
 	<script src="/js/common_scripts.js"></script>
 	<script src="/js/functions.js"></script>
 	<script src="/js/angular.min.js"></script>
+	<script src="/js/ngAutocomplete.js"></script>
 	<script src="/assets/validate.js"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 	<script>
 		var debug = false;
-		var app = angular.module("myApp", []);
+		var app = angular.module("myApp", ['ngAutocomplete']);
 		var controller = app.controller("myController", function ($scope, $http) {
 			$scope.formData = {};
 			$scope.formData.country = 'VN';
+                        $scope.businessAddressOptions = {country: 'vn'};
+                        $scope.businessAddressDetails = {};
+                        $scope.printAddress = function() {
+                            console.log($scope.businessAddressDetails);
+                        }    
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        $scope.locationList = [];
+                        $scope.delayTimer;
+                        $scope._csrf = '${_csrf.token}';
+                        $scope.delayAddressSuggest = function () {
+                            clearTimeout($scope.delayTimer);
+                            $scope.delayTimer = setTimeout(function() {
+                                $scope.addressSuggest();
+                            }, 1000);
+                        };
+                        $scope.addressSuggest = function() {
+                            $.ajax({
+                                type: 'POST',
+                                url:  'getGeoSuggest',
+                                data: 'query=' + $scope.formData.businessAddress + "&_csrf=" + $scope._csrf,
+                                success: function (response) {
+                                   if(response.code === '00'){
+                                        $scope.locationList = [];
+                                        var data = JSON.parse(response.message);
+                                        for(var k in data.suggestions) {
+                                            $scope.locationList.push(data.suggestions[k]);
+                                        }
+                                   }
+                                },
+                                complete: function(data){
+                                }
+                            });
+                        };
 		});
 	</script>
 

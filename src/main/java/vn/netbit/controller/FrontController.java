@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import vn.netbit.beans.BusinessInfo;
 import vn.netbit.beans.Post;
 import vn.netbit.beans.Taxonomy;
 import vn.netbit.beans.UserLogged;
@@ -43,8 +45,19 @@ public class FrontController {
     }
 
     @RequestMapping("/new")
-    public String newTarget(Model model) {
+    public String newBusiness(Model model) {
         return "new";
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public String newBusiness(Model model, @ModelAttribute BusinessInfo businessInfo) {
+        try {
+
+            return "new";
+        } catch (Exception e) {
+            // TODO: handle exception
+            return "new";
+        }
     }
 
     @RequestMapping("/markdown")

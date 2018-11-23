@@ -10,7 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.pegdown.PegDownProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,9 +35,9 @@ public class AccountController {
     private static Logger LOGGER = LogManager.getLogger(AccountController.class);
     private static PegDownProcessor processor = new PegDownProcessor();
 
-    @Autowired 
+    @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         try {
@@ -48,47 +47,44 @@ public class AccountController {
             }
             model.addAttribute("user", new User());
         } catch (Exception e) {
-            LOGGER.error("Register init Ex: {}",e);
+            LOGGER.error("Register init Ex: {}", e);
         }
-        
+
         return "register";
     }
-    
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(Model model,
-                           WebRequest request,
-                           @ModelAttribute("user") User user) {
+    public String register(Model model, WebRequest request, @ModelAttribute("user") User user) {
         try {
             model.addAttribute("user", user);
-            
+
             String passWord = Utils.genRanDomPass();
             user.setPassWord(passwordEncoder.encode(passWord));
             String res = AccountDao.getInstance().insertUser(user);
-            if("00".equals(res)){
+            if ("00".equals(res)) {
                 return "register_success";
             }
-            if("01".equals(res)){
+            if ("01".equals(res)) {
                 model.addAttribute("msg", "Email đã được sử dụng. Sử dụng quên mật khẩu nếu bạn sở hữu Email này");
                 return "register";
             }
-            
+
             model.addAttribute("msg", "Đăng ký không thành công");
             return "register";
         } catch (Exception e) {
-            LOGGER.error("Register process Ex: {}",e);
+            LOGGER.error("Register process Ex: {}", e);
             model.addAttribute("msg", "Có lỗi trong quá trình đăng ký vui lòng thử lại");
             return "register";
         }
     }
 
     @RequestMapping("/login")
-    public String login(@RequestParam(name = "error", required = false) String error,
-                         HttpServletRequest request) {
+    public String login(@RequestParam(name = "error", required = false) String error, HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             return "redirect:/";
         }
-        if(null != error) {
+        if (null != error) {
             String msg = (String) request.getSession().getAttribute("errMsg");
             request.getSession().removeAttribute("errMsg");
             request.setAttribute("msg", msg);

@@ -16,7 +16,7 @@ import vn.netbit.config.Config;
 import vn.netbit.utils.ConnectionManager;
 import vn.netbit.utils.ShutdownListener;
 
-@SpringBootApplication(scanBasePackages={"vn.netbit.controller, vn.netbit.cache" })
+@SpringBootApplication(scanBasePackages={"vn.netbit.controller, vn.netbit.cache, vn.netbit.security" })
 @EnableScheduling
 public class Application {
     
