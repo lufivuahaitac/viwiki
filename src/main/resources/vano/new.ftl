@@ -290,7 +290,24 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label>Giá dịch vụ (*)</label>
+                                    <div class="row" id="price_range">
+                                        <div class="col-lg-3">
+                                            <input ng-model="formData.fromPrice" class="form-control" type="text"
+                                                placeholder="Thấp nhất">
+                                        </div>
+                                        ~
+                                        <div class="col-lg-3">
+                                            <input ng-model="formData.toPrice" class="form-control" type="text"
+                                                placeholder="Cao nhất">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input ng-model="formData.toPrice" class="form-control" type="text"
+                                                placeholder="Đơn vị">
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- <div class="row" id="addressinfo">
                                             <div class="col-lg-4">
                                                     <div class="form-group">
