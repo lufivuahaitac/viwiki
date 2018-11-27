@@ -104,4 +104,38 @@ public class CmsDao {
             DBUtils.closeQuietly(st, con);
         }
     }
+    
+    /**
+     * Tao Business
+     *
+     * @param requestBean
+     * @return
+     */
+    public int createBusiness(Taxonomy requestBean) {
+        Connection con = null;
+        CallableStatement st = null;
+
+        try {
+            con = ConnectionManager.getInstance().getConnection();
+            if (con == null) {
+                LOGGER.info("Get Connect to Database createTaxonomy...failed");
+                return -1;
+            }
+            String sql = "{call " + DatabaseConfig.insertTaxonomy() + " (?,?,?,?)}";
+            st = con.prepareCall(sql);
+            st.setString("URL", requestBean.getTaxonomyUrl());
+            st.setString("TYPE", requestBean.getTaxonomyType());
+            st.setString("NAME", requestBean.getTaxonomyName());
+            st.registerOutParameter("ID", Types.INTEGER);
+            st.execute();
+            int result = st.getInt("ID");
+            LOGGER.info("createTaxonomy... result: {}", result);
+            return result;
+        } catch (Exception ex) {
+            LOGGER.error("createTaxonomy...failed. Error: {}", ex);
+            return -1;
+        } finally {
+            DBUtils.closeQuietly(st, con);
+        }
+    }
 }

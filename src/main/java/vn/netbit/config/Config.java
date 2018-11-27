@@ -5,6 +5,7 @@
  */
 package vn.netbit.config;
 
+import java.io.File;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
@@ -21,6 +22,8 @@ public class Config implements Runnable {
     private static final long serialVersionUID = 1L;
     private static PropertiesConfiguration databaseConfig;
     private static PropertiesConfiguration appConfig;
+    
+    public final static String DIR = System.getProperty("user.dir");
     
 
     /**
