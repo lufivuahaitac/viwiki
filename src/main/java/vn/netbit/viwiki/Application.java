@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +14,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import vn.netbit.config.Config;
+import vn.netbit.controller.NewClass2;
 import vn.netbit.utils.ConnectionManager;
+import vn.netbit.utils.SequenceGenerator;
 import vn.netbit.utils.ShutdownListener;
 
 @SpringBootApplication(scanBasePackages={"vn.netbit.controller, vn.netbit.cache, vn.netbit.security" })
@@ -26,6 +29,10 @@ public class Application {
         loadLogger();
         Config.init();
         ConnectionManager.getInstance();
+        
+        new NewClass();
+        new NewClass2();
+        
         System.setProperty("spring.devtools.restart.enabled", "false");
         //Runtime.getRuntime().addShutdownHook(new ShutDownHook());
         SpringApplication app = new SpringApplication(Application.class);
@@ -50,6 +57,7 @@ public class Application {
         URI source = new File(configuration).toURI();
         Configurator.initialize("contextLog4J", null, source);
         logger = LogManager.getLogger(Application.class);
+        ThreadContext.put("token", SequenceGenerator.getInstance().nextIdString());
         System.out.println("Init Logger Success");
         logger.debug("Debugging log");
         logger.info("Info log");

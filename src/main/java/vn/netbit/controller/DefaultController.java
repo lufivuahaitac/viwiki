@@ -15,23 +15,29 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import com.google.gson.Gson;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import java.util.UUID;
-import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.ui.Model;
 import vn.netbit.beans.JoditUploadResult;
 import vn.netbit.config.Config;
+import vn.netbit.daos.CmsDao;
+import vn.netbit.utils.SequenceGenerator;
 
 @Controller
 public class DefaultController {
 
     private static final Logger LOGGER = LogManager.getLogger(DefaultController.class);
     private static final Gson GSON = new Gson();
+    
+    
+    private DefaultController(){
+        LOGGER.info("DefaultController");
+    }
 
     @GetMapping("/403")
     public String error403() {
@@ -40,9 +46,12 @@ public class DefaultController {
 
     @ResponseBody
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public String dsTranSuccessByUpdatePager(Model model, HttpServletRequest request,
-            @RequestParam(required = false, value = "draw", defaultValue = "0") String draw) {
-        return draw;
+    public String dsTranSuccessByUpdatePager() {
+        ThreadContext.put("token", SequenceGenerator.getInstance().nextIdString());
+        
+        LOGGER.info("TEST LOG 1");
+        CmsDao.getInstance().testLog();
+        return "111";
     }
 
     @RequestMapping(value = "/getGeoSuggest", method = RequestMethod.POST, produces = "application/json")
@@ -51,6 +60,7 @@ public class DefaultController {
             @RequestParam(value = "query", required = false, defaultValue = "") String query) {
         String token = UUID.randomUUID().toString();
         try {
+
             query = query.replaceAll(" ", "+");
             String url = String.format(Config.getAppConfig().getString("BING_GEOSUGGEST_URL"), query);
             return GSON.toJson(RestClient.getData(url));

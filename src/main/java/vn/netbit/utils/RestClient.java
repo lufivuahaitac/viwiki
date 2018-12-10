@@ -4,6 +4,8 @@ package vn.netbit.utils;
  * truongnq
  */
 
+import java.util.concurrent.TimeUnit;
+import okhttp3.ConnectionPool;
 import org.apache.logging.log4j.Logger;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,7 +19,11 @@ import vn.netbit.contant.*;
 public class RestClient {
 
     private static final Logger LOGGER = LogManager.getLogger(RestClient.class);
-    private static final OkHttpClient CLIENT = new OkHttpClient();
+    private static final ConnectionPool POOL = new ConnectionPool(30, 10000, TimeUnit.MILLISECONDS);
+
+    private static final OkHttpClient CLIENT = new OkHttpClient.Builder()
+                              .connectionPool(POOL)
+                              .build();
 
     private static final class SingletonHolder {
 

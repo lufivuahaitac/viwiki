@@ -31,4 +31,6 @@ public class BusinessInfo {
     private String businessPhone;
     private String businessEmail;
     private String businessWebsite;
+    private double latitude;
+    private double longitude;
 }

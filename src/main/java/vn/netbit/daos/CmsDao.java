@@ -34,6 +34,10 @@ public class CmsDao {
         return SingletonHolder.instance;
     }
 
+    public void testLog() {
+        LOGGER.info("TEST LOG 2");
+    }
+    
     /**
      * Tao tk
      *

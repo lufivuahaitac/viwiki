@@ -13,7 +13,7 @@
                 <ThresholdFilter level="debug"  onMatch="DENY" onMismatch="NEUTRAL"/>
             </Filters>
             <PatternLayout>
-                <pattern>%d %-18.18M - %m - %-22.22c{1} %n</pattern>
+                <pattern>%d %-18.18M - [%X{token}] - %m - %-22.22c{1} %n</pattern>
             </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="20 MB"/>
@@ -29,7 +29,7 @@
                 <ThresholdFilter level="debug"  onMatch="DENY" onMismatch="NEUTRAL"/>
             </Filters>
             <PatternLayout>
-                <pattern>%d %-18.18M - %m - %-22.22c{1} %n</pattern>
+                <pattern>%d %-18.18M - [%X{token}] - %m - %-22.22c{1} %n</pattern>
             </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="20 MB"/>
@@ -45,7 +45,7 @@
                 <ThresholdFilter level="debug"  onMatch="DENY" onMismatch="NEUTRAL"/>
             </Filters>
             <PatternLayout>
-                <pattern>%d %-18.18M - %m - %-22.22c{1} %n</pattern>
+                <pattern>%d %-18.18M - [%X{token}] - %m - %-22.22c{1} %n</pattern>
             </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="20 MB"/>
@@ -61,7 +61,7 @@
                 <ThresholdFilter level="debug"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
             </Filters>
             <PatternLayout>
-                <pattern>%d %-18.18M - %m - %-22.22c{1} %n</pattern>
+                <pattern>%d %-18.18M - [%X{token}] - %m - %-22.22c{1} %n</pattern>
             </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="20 MB"/>
